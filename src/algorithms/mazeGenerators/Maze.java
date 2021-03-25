@@ -9,13 +9,12 @@ public class Maze {
      * a constructor for maze which is protected because every creation of a maze will
      * be executed by a maze generator which is in the same package. the maze is saved as
      * a 2 dimensions array.
-     * @param columns - number of columns in the maze
-     * @param rows - number of rows in the maze
+     * @param map - 2D int array that represent the maze map
      * @param start - the starting position point
      * @param goal - the finishing position point
      */
-    protected Maze(int columns, int rows, Position start, Position goal) {
-        this.maze = new int[rows][columns];
+    protected Maze(int[][] map, Position start, Position goal) {
+        this.maze = map;
         this.start = start;
         this.goal = goal;
     }
@@ -61,6 +60,7 @@ public class Maze {
      */
     public void print(){
         for (int i=0;i<maze.length;i++){
+            System.out.print("{ ");
             for (int j = 0; j < maze[0].length; j++) {
                 if(i==start.getRowIndex() && j==start.getColumnIndex())
                     System.out.print("S ");
@@ -70,7 +70,7 @@ public class Maze {
                     System.out.print(maze[i][j] + " ");
 
             }
-            System.out.println();
+            System.out.println("}");
         }
     }
 }

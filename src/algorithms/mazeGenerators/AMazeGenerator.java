@@ -1,5 +1,7 @@
 package algorithms.mazeGenerators;
 
+import java.util.Random;
+
 public abstract class AMazeGenerator implements IMazeGenerator {
     /**
      * measureAlgorithmTimeMillis measures the time in milli seconds that takes
@@ -27,8 +29,11 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      */
     public Position[] startAndGoalPositions(int columns, int rows){
         Position[] pos = new Position[2];
-        pos[0] = new Position(0,0); //temporaly
-        pos[1] = new Position(columns,rows); //temporaly
+        Random rand = new Random();
+        int rowGoal = rand.nextInt(rows);
+        int colStart = rand.nextInt(columns);
+        pos[0] = new Position(colStart,0);
+        pos[1] = new Position(columns-1,rowGoal);
         return pos;
     }
 }

@@ -12,6 +12,7 @@ public class EmptyMazeGenerator extends AMazeGenerator{
     @Override
     public Maze generate(int columns, int rows) {
         Position[] positions = startAndGoalPositions(columns, rows);
-        return new Maze(columns,rows,positions[0],positions[1]);
+        int[][] map = new int[rows][columns];
+        return new Maze(map,positions[0],positions[1]);
     }
 }

@@ -10,7 +10,8 @@ public class MyMazeGenerator extends AMazeGenerator{
     @Override
     public Maze generate(int columns, int rows) {
         Position[] positions = startAndGoalPositions(columns, rows);
-        Maze myMaze = new Maze(columns,rows,positions[0],positions[1]);
+        int[][] map = new int[rows][columns];
+        Maze myMaze = new Maze(map,positions[0],positions[1]);
         //TODO need to choose an algorithm to build the maze and build it
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {

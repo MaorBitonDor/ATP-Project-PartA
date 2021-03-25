@@ -12,7 +12,8 @@ public class SimpleMazeGenerator extends AMazeGenerator{
     @Override
     public Maze generate(int columns, int rows) {
         Position[] positions = startAndGoalPositions(columns, rows);
-        Maze simpleMaze = new Maze(columns,rows,positions[0],positions[1]);
+        int[][] map = new int[rows][columns];
+        Maze simpleMaze = new Maze(map,positions[0],positions[1]);
         Random random = new Random();
         //TODO need to choose a road that we cant put walls in so it needs some work
         for (int i = 0; i < rows; i++) {
