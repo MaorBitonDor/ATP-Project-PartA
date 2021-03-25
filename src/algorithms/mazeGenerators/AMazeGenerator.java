@@ -1,0 +1,34 @@
+package algorithms.mazeGenerators;
+
+public abstract class AMazeGenerator implements IMazeGenerator {
+    /**
+     * measureAlgorithmTimeMillis measures the time in milli seconds that takes
+     * to generate a maze using the generate method, it doing it by subtracting
+     * the finish time from the start time.
+     * @param columns - number of columns in the maze
+     * @param rows - number of rows in the maze
+     * @return long
+     */
+    public long measureAlgorithmTimeMillis(int columns,int rows){
+        long beforeTime = System.currentTimeMillis();
+        generate(columns,rows);
+        long afterTime = System.currentTimeMillis();
+        return afterTime-beforeTime;
+    }
+
+    /**
+     * startAndGoalPositions is a function that choose the start and goal
+     * positions of the maze and returns it in a Position array in size of 2
+     * which the start position is in the first place in the array and the goal
+     * position is in the second place in the array.
+     * @param columns - number of columns in the maze
+     * @param rows - number of rows in the maze
+     * @return Position[]
+     */
+    public Position[] startAndGoalPositions(int columns, int rows){
+        Position[] pos = new Position[2];
+        pos[0] = new Position(0,0); //temporaly
+        pos[1] = new Position(columns,rows); //temporaly
+        return pos;
+    }
+}
