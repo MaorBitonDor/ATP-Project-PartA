@@ -15,10 +15,10 @@ public class SimpleMazeGenerator extends AMazeGenerator{
         int[][] map = new int[rows][columns];
         Maze simpleMaze = new Maze(map,positions[0],positions[1]);
         Random random = new Random();
-        //TODO need to choose a road that we cant put walls in so it needs some work
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                if(i != simpleMaze.getGoalPosition().getRowIndex() && j != simpleMaze.getGoalPosition().getColumnIndex()) {
+                if((i != simpleMaze.getStartPosition().getColumnIndex() || j > simpleMaze.getGoalPosition().getRowIndex()) &&
+                        (i != simpleMaze.getGoalPosition().getRowIndex() || j < simpleMaze.getStartPosition().getColumnIndex())) {
                     simpleMaze.setMazeCell(i,j,random.nextInt(2));
                 }
             }

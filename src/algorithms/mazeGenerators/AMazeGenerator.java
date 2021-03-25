@@ -32,6 +32,11 @@ public abstract class AMazeGenerator implements IMazeGenerator {
         Random rand = new Random();
         int rowGoal = rand.nextInt(rows);
         int colStart = rand.nextInt(columns);
+        while(colStart == columns-1 && rowGoal == 0)
+        {
+            colStart = rand.nextInt(columns);
+            rowGoal = rand.nextInt(rows);
+        }
         pos[0] = new Position(colStart,0);
         pos[1] = new Position(columns-1,rowGoal);
         return pos;
