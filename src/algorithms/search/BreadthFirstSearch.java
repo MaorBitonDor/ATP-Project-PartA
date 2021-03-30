@@ -31,6 +31,9 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         visited.add(root);
         while(queue.size() > 0){
             curState = queue.poll();
+            if(curState.equals(goal)){
+                return new Solution(curState);
+            }
             possibleStates = dom.getAllPossibleStates(curState);
             for (AState possibleState : possibleStates) {
                 if (!visited.contains(possibleState)) {
@@ -38,9 +41,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                     incNumberOfNodesEvaluated();
                     queue.add(possibleState);
                 }
-            }
-            if(curState.equals(goal)){
-                return new Solution(curState);
             }
         }
         return new Solution();
