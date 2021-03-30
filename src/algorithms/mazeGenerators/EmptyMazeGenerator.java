@@ -9,9 +9,11 @@ public class EmptyMazeGenerator extends AMazeGenerator{
      * @param rows - number of rows in the maze
      * @return Maze
      */
+
     @Override
     public Maze generate(int columns, int rows) {
         Position[] positions = startAndGoalPositions(columns, rows);
+//        Position[] positions = {new Position(0,0),new Position(rows-1,columns-1)};
         int[][] map = new int[rows][columns];
         return new Maze(map,positions[0],positions[1]);
     }

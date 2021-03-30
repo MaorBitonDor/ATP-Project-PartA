@@ -9,7 +9,7 @@ public class Position {
      * @param column - the column index of the position
      * @param row - the row index of the position
      */
-    public Position(int column, int row) {
+    public Position(int row, int column) {
         this.column = column;
         this.row = row;
     }

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class SimpleMazeGenerator extends AMazeGenerator{
     /**
-     * generate create a simple maze with random walls and returns it.
+     * generate create a simple maze with random walls with at least one solution and returns it.
      * @param columns - number of columns in the maze
      * @param rows - number of rows in the maze
      * @return Maze

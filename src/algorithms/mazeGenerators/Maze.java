@@ -19,6 +19,10 @@ public class Maze {
         this.goal = goal;
     }
 
+//    public void setMaze(int[][] maze) {
+//        this.maze = maze;
+//    }
+
     /**
      * a getter for the start position.
      * @return Position

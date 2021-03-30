@@ -1,13 +1,12 @@
 package algorithms.mazeGenerators;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Stack;
 
 public class MyMazeGenerator extends AMazeGenerator{
     /**
-     * generate create a maze with our chosen algorithm and creates walls accordingly.
+     * generate create a maze with randomized DFS algorithm and creates walls accordingly.
      * @param columns - number of columns in the maze
      * @param rows - number of rows in the maze
      * @return Maze
@@ -66,16 +65,29 @@ public class MyMazeGenerator extends AMazeGenerator{
             }
         }
         // if we want to make the maze harder we can create more dead ends with random cells turning them to 0
-//        for (int i = 0; i < rows; i++) {
-//            for (int j = 0; j < columns; j++) {
-//                if(map[i][j] == 1) {
-//                    map[i][j] = random.nextInt(2);
-//                }
-//            }
-//        }
+        int randRow, randColumn;
+        for (int i = 0; i < ((int)Math.sqrt(rows*columns)); i++) {
+            randRow = random.nextInt(rows);
+            randColumn = random.nextInt(columns);
+            if(map[randRow][randColumn] == 1) {
+                map[randRow][randColumn] = random.nextInt(2);
+            }
+        }
+        map[positions[0].getRowIndex()][positions[0].getColumnIndex()] = 0;
+        map[positions[1].getRowIndex()][positions[1].getColumnIndex()] = 0;
         return new Maze(map,positions[0],positions[1]);
     }
 
+    /**
+     * this function returns a list of arrays each array in size of 2 that state the position of the all
+     * the neighbors of the current cell that the algorithm did not visit in. We define that a neighbor is a
+     * cell that is 2 cells away (up, down, left or right) from the current cell.
+     * @param map - the map that represent the maze.
+     * @param rows - the number of rows in the map.
+     * @param columns - the number of columns in the map.
+     * @param curCell - the current cell that we want to get its neighbors.
+     * @return ArrayList<int[]> called neighbors that contains all the neighbors of the current cell.
+     */
     private ArrayList<int[]> getNeighbors(int[][] map, int rows, int columns, int[] curCell){
         ArrayList<int[]> neighbors = new ArrayList<>();
         int[] tempPosition = new int[2];
