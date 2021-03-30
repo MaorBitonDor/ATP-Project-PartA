@@ -23,8 +23,8 @@ public class RunSearchOnMaze {
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         MazeState ms = new MazeState(new Position(3,3));
         ArrayList<AState> possibleStates = searchableMaze.getAllPossibleStates(ms);
-        solveProblem(searchableMaze, new BreadthFirstSearch());
-//        solveProblem(searchableMaze, new DepthFirstSearch());
+//        solveProblem(searchableMaze, new BreadthFirstSearch());
+        solveProblem(searchableMaze, new DepthFirstSearch());
 //        solveProblem(searchableMaze, new BestFirstSearch());
     }
     private static void solveProblem(ISearchable domain, ISearchingAlgorithm searcher) {

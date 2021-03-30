@@ -19,13 +19,10 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         ArrayList<AState> possibleStates;
         AState curState,root = dom.getStartState(), goal = dom.getGoalState();
         stack.push(root);
-        visited.add(root);
         while(!stack.empty()){
             curState = stack.pop();
             if(curState.equals(goal))
-            {
                 return new Solution(curState);
-            }
             if(!visited.contains(curState)){
                 visited.add(curState);
                 possibleStates = dom.getAllPossibleStates(curState);
@@ -34,6 +31,6 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
                 }
             }
         }
-        return null;
+        return new Solution();
     }
 }
