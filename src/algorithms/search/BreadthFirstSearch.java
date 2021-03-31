@@ -16,6 +16,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         this.queue = new LinkedList<>();
     }
 
+    //todo null checks of dom
     /**
      * this function uses BFS to solve the problem we face generically (like a maze for example).
      * @param dom - is a searchable object that can be searched by BFS.
@@ -29,6 +30,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         AState curState,root = dom.getStartState(), goal = dom.getGoalState();
         queue.add(root);
         visited.add(root);
+        incNumberOfNodesEvaluated();
         while(queue.size() > 0){
             curState = queue.poll();
             if(curState.equals(goal)){

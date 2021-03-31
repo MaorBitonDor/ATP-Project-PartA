@@ -25,6 +25,7 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
                 return new Solution(curState);
             if(!visited.contains(curState)){
                 visited.add(curState);
+                incNumberOfNodesEvaluated();
                 possibleStates = dom.getAllPossibleStates(curState);
                 for (AState possibleState : possibleStates){
                     stack.push(possibleState);
