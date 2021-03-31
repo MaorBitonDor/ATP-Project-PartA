@@ -73,8 +73,13 @@ public class MyMazeGenerator extends AMazeGenerator{
                 map[randRow][randColumn] = random.nextInt(2);
             }
         }
+        int goalRow = positions[1].getRowIndex(), goalColumn = positions[1].getColumnIndex();
         map[positions[0].getRowIndex()][positions[0].getColumnIndex()] = 0;
-        map[positions[1].getRowIndex()][positions[1].getColumnIndex()] = 0;
+        map[goalRow][goalColumn] = 0;
+        if(map[goalRow+1][goalColumn]==1 && map[goalRow][goalColumn-1]==1 && map[goalRow-1][goalColumn]==1){
+            map[goalRow+1][goalColumn] = 0;
+            map[goalRow][goalColumn-1] = 0;
+        }
         return new Maze(map,positions[0],positions[1]);
     }
 

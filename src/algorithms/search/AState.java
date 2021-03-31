@@ -14,6 +14,7 @@ public abstract class AState {
     public AState(String state) {
         State = state;
         prevState = null;
+        cost = 0;
     }
 
     /**
@@ -41,7 +42,10 @@ public abstract class AState {
      * @param cost - the cost of passing from the previous state to this state.
      */
     public void setCost(double cost) {
-        this.cost += cost;
+        if(prevState != null)
+            this.cost =prevState.getCost()+cost;
+        else
+            this.cost = cost;
     }
 
     /**

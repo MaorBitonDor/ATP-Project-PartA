@@ -24,7 +24,7 @@ public class SearchableMaze implements ISearchable{
         int[][] map = maze.getMaze();
         int rows = map.length;
         int columns = map[0].length;
-        MazeState tempMazeState, mazeState = (MazeState)curState;
+        MazeState mazeState = (MazeState)curState;
         int curRow = mazeState.getPositionRow();
         int curColumn = mazeState.getPositionColumn();
         boolean topRight = false, topLeft = false, bottomRight = false, bottomLeft = false;
@@ -106,8 +106,8 @@ public class SearchableMaze implements ISearchable{
      */
     private AState createMazeStateFromPosition(int row, int column, double cost, AState prevState){
         MazeState mazeState = new MazeState(new Position(row,column));
-        mazeState.setCost(cost);
         mazeState.setPrevState(prevState);
+        mazeState.setCost(cost);
         return mazeState;
     }
     /**
