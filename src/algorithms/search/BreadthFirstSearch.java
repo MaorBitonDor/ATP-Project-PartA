@@ -16,7 +16,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         this.queue = new LinkedList<>();
     }
 
-    //todo null checks of dom
     /**
      * this function uses BFS to solve the problem we face generically (like a maze for example).
      * @param dom - is a searchable object that can be searched by BFS.
@@ -24,6 +23,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
      */
     @Override
     public Solution solve(ISearchable dom) {
+        if(dom == null)
+            return new Solution();
         this.queue.clear();
         HashSet<AState> visited = new HashSet<>();
         ArrayList<AState> possibleStates;
@@ -36,7 +37,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             if(curState.equals(goal)){
                 return new Solution(curState);
             }
-            possibleStates = dom.getAllPossibleStates(curState);
+            possibleStates = dom.getAllSuccessors(curState);
             for (AState possibleState : possibleStates) {
                 if (!visited.contains(possibleState)) {
                     visited.add(possibleState);
@@ -45,6 +46,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                 }
             }
         }
+        //no solution found by the algorithm
         return new Solution();
     }
 

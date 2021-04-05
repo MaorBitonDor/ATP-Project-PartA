@@ -3,7 +3,7 @@ package algorithms.search;
 import java.util.ArrayList;
 
 public interface ISearchable {
-    ArrayList<AState> getAllPossibleStates(AState curState);
+    ArrayList<AState> getAllSuccessors(AState curState);
     AState getGoalState();
     AState getStartState();
 }

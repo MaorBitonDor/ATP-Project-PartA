@@ -15,6 +15,6 @@ public class EmptyMazeGenerator extends AMazeGenerator{
         Position[] positions = startAndGoalPositions(columns, rows);
 //        Position[] positions = {new Position(0,0),new Position(rows-1,columns-1)};
         int[][] map = new int[rows][columns];
-        return new Maze(map,positions[0],positions[1]);
+        return new Maze(positions[0],positions[1],map);
     }
 }

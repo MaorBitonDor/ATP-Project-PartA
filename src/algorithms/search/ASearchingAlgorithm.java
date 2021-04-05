@@ -28,6 +28,14 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
         return EvalNodesNum;
     }
 
+    /**
+     * this function allow to change the name of the algorithm for any class that inheret this
+     * abstract class
+     * @param name - the new name of the algorithm
+     */
+    protected void setName(String name) {
+        Name = name;
+    }
 
     /**
      * this function increase the number of evaluated nodes by 1

@@ -13,7 +13,7 @@ public class SimpleMazeGenerator extends AMazeGenerator{
     public Maze generate(int columns, int rows) {
         Position[] positions = startAndGoalPositions(columns, rows);
         int[][] map = new int[rows][columns];
-        Maze simpleMaze = new Maze(map,positions[0],positions[1]);
+        Maze simpleMaze = new Maze(positions[0],positions[1],map);
         Random random = new Random();
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {

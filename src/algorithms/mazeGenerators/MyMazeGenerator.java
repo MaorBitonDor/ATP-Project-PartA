@@ -80,7 +80,7 @@ public class MyMazeGenerator extends AMazeGenerator{
             map[goalRow+1][goalColumn] = 0;
             map[goalRow][goalColumn-1] = 0;
         }
-        return new Maze(map,positions[0],positions[1]);
+        return new Maze(positions[0],positions[1],map);
     }
 
     /**

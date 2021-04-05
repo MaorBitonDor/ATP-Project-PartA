@@ -8,6 +8,7 @@ public class SearchableMaze implements ISearchable{
     private final Maze maze;
 
     /**
+     * this is the constructor of searchableMaze which set the maze to be the given maze
      * @param maze - this is the maze that we want to search on.
      */
     public SearchableMaze(Maze maze) {
@@ -15,11 +16,13 @@ public class SearchableMaze implements ISearchable{
     }
 
     /**
+     * this function get an AState and returns a list of all the possible states that we can go to
+     * from the current state in the maze.
      * @param curState - is the state that we are currently in the maze.
      * @return a list of all the neighbors that we can go to from the current state.
      */
     @Override
-    public ArrayList<AState> getAllPossibleStates(AState curState) {
+    public ArrayList<AState> getAllSuccessors(AState curState) {
         ArrayList<AState> possibleStates = new ArrayList<>();
         int[][] map = maze.getMaze();
         int rows = map.length;

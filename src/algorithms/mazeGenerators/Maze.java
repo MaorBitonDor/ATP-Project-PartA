@@ -13,7 +13,7 @@ public class Maze {
      * @param start - the starting position point
      * @param goal - the finishing position point
      */
-    protected Maze(int[][] map, Position start, Position goal) {
+    protected Maze(Position start, Position goal, int[][] map) {
         this.maze = map;
         this.start = start;
         this.goal = goal;

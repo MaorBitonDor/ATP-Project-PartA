@@ -12,8 +12,15 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
         super("Depth First Search");
     }
 
+    /**
+     * this function uses DFS to solve the problem we face generically (like a maze for example).
+     * @param dom - is a searchable object that can be searched by DFS.
+     * @return a Solution class that has the path from the start state to the goal state.
+     */
     @Override
     public Solution solve(ISearchable dom) {
+        if(dom == null)
+            return new Solution();
         Stack<AState> stack = new Stack<>();
         HashSet<AState> visited = new HashSet<>();
         ArrayList<AState> possibleStates;
@@ -26,12 +33,13 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
             if(!visited.contains(curState)){
                 visited.add(curState);
                 incNumberOfNodesEvaluated();
-                possibleStates = dom.getAllPossibleStates(curState);
+                possibleStates = dom.getAllSuccessors(curState);
                 for (AState possibleState : possibleStates){
                     stack.push(possibleState);
                 }
             }
         }
+        //no solution found by the algorithm
         return new Solution();
     }
 }
