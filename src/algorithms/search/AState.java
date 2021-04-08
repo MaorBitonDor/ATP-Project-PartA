@@ -2,7 +2,7 @@ package algorithms.search;
 
 import java.util.Objects;
 
-public abstract class AState {
+public abstract class AState implements Comparable{
     private final String State;
     private double cost;
     private AState prevState;
@@ -43,7 +43,7 @@ public abstract class AState {
      */
     public void setCost(double cost) {
         if(prevState != null)
-            this.cost =prevState.getCost()+cost;
+            this.cost = prevState.getCost()+cost;
         else
             this.cost = cost;
     }
@@ -53,6 +53,12 @@ public abstract class AState {
      */
     public void setPrevState(AState prevState) {
         this.prevState = prevState;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        AState other = (AState) o;
+        return (int) (this.cost- other.getCost());
     }
 
     /**

@@ -40,6 +40,8 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
             possibleStates = dom.getAllSuccessors(curState);
             for (AState possibleState : possibleStates) {
                 if (!visited.contains(possibleState)) {
+                    possibleState.setPrevState(curState);
+                    possibleState.setCost(possibleState.getCost());
                     visited.add(possibleState);
                     incNumberOfNodesEvaluated();
                     queue.add(possibleState);

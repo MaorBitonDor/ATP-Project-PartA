@@ -35,6 +35,8 @@ public class DepthFirstSearch extends ASearchingAlgorithm {
                 incNumberOfNodesEvaluated();
                 possibleStates = dom.getAllSuccessors(curState);
                 for (AState possibleState : possibleStates){
+                    possibleState.setPrevState(curState);
+                    possibleState.setCost(possibleState.getCost());
                     stack.push(possibleState);
                 }
             }

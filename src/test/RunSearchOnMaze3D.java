@@ -1,22 +1,37 @@
 package test;
 
-import algorithms.maze3D.IMaze3DGenerator;
-import algorithms.maze3D.Maze3D;
-import algorithms.maze3D.MyMaze3DGenerator;
-import algorithms.maze3D.SearchableMaze3D;
+import algorithms.maze3D.*;
 import algorithms.search.*;
 
 import java.util.ArrayList;
 
 public class RunSearchOnMaze3D {
     public static void main(String[] args) {
-        IMaze3DGenerator mg = new MyMaze3DGenerator();
-        Maze3D maze3D = mg.generate(100,100, 100);
-//        maze3D.print();
+//        IMaze3DGenerator mg = new MyMaze3DGenerator();
+//        Maze3D maze3D = mg.generate(100,100, 100);
+        int[][][] map = {
+                        {{0,0,0,0,0},
+                        {0,0,1,1,0},
+                        {1,0,0,1,0},
+                        {1,1,0,0,0}} ,
+                        {{1,1,1,1,1},
+                        {1,1,1,1,1},
+                        {1,1,1,1,0},
+                        {1,1,1,1,1}},
+                        {{0,0,0,0,0},
+                        {0,0,1,1,0},
+                        {1,0,0,1,0},
+                        {1,1,0,0,0}}
+
+        };
+        Position3D start = new Position3D(0,0,0);
+        Position3D end = new Position3D(2,0,0);
+        Maze3D maze3D = new Maze3D(start,end,map);
+        maze3D.print();
         SearchableMaze3D searchableMaze3D = new SearchableMaze3D(maze3D);
         solveProblem(searchableMaze3D, new BreadthFirstSearch());
-//        solveProblem(searchableMaze3D, new DepthFirstSearch());
-//        solveProblem(searchableMaze3D, new BestFirstSearch());
+        solveProblem(searchableMaze3D, new DepthFirstSearch());
+        solveProblem(searchableMaze3D, new BestFirstSearch());
     }
     private static void solveProblem(ISearchable domain, ISearchingAlgorithm searcher) {
         //Solve a searching problem with a searcher

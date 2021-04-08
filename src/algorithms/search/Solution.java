@@ -31,6 +31,7 @@ public class Solution {
         }
         stack.push(curState);
         while(!stack.empty()){
+//            this.solutionCost += stack.peek().getCost();
             SolutionPath.add(stack.pop());
         }
     }

@@ -2,16 +2,27 @@ package test;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
+import algorithms.mazeGenerators.Position;
 import algorithms.search.*;
 import java.util.ArrayList;
 
 public class RunSearchOnMaze {
     public static void main(String[] args) {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(1000, 1000);
+        Maze maze = mg.generate(29, 27);
+//        int[][] map = {{0, 0, 0, 0, 0, 1, 1},
+//                        {1, 0, 1, 1, 0, 0, 1},
+//                        {1, 0, 0, 1, 1, 0, 0},
+//                        {1, 1, 0, 0, 1, 1, 0},
+//                        {1, 1, 1, 0, 0, 1, 0},
+//                        {1, 1, 1, 1, 0, 0, 0}};
+//        Position start = new Position(0,0);
+//        Position goal = new Position(4,6);
+//        Maze maze = new Maze(start,goal,map);
+        maze.print();
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         solveProblem(searchableMaze, new BreadthFirstSearch());
-        solveProblem(searchableMaze, new DepthFirstSearch());
+//        solveProblem(searchableMaze, new DepthFirstSearch());
         solveProblem(searchableMaze, new BestFirstSearch());
     }
     private static void solveProblem(ISearchable domain, ISearchingAlgorithm searcher) {

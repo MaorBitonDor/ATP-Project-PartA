@@ -34,64 +34,64 @@ public class SearchableMaze implements ISearchable{
         //checking the neighbor up from the current cell
         if(curRow-1 >= 0 && map[curRow-1][curColumn] == 0)
         {
-            possibleStates.add(createMazeStateFromPosition(curRow-1, curColumn,10, curState));
+            possibleStates.add(createMazeStateFromPosition(curRow-1, curColumn,10));
             //if the up neighbor can be passed through then we can go diagonally to the top right and left neighbors
             //this checks the top right neighbor
             if(curColumn+1<columns && map[curRow-1][curColumn+1] == 0 && !topRight){
-                possibleStates.add(createMazeStateFromPosition(curRow-1, curColumn+1,15, curState));
+                possibleStates.add(createMazeStateFromPosition(curRow-1, curColumn+1,15));
                 topRight = true;
             }
             //this checks the top left neighbor
             if(curColumn-1 >= 0 && map[curRow-1][curColumn-1] == 0 && !topLeft){
-                possibleStates.add(createMazeStateFromPosition(curRow-1, curColumn-1,15, curState));
+                possibleStates.add(createMazeStateFromPosition(curRow-1, curColumn-1,15));
                 topLeft = true;
             }
         }
         //checking the neighbor right from the current cell
         if(curColumn+1 < columns && map[curRow][curColumn+1] == 0)
         {
-            possibleStates.add(createMazeStateFromPosition(curRow, curColumn+1,10, curState));
+            possibleStates.add(createMazeStateFromPosition(curRow, curColumn+1,10));
             //if the right neighbor can be passed through then we can go diagonally to the top and bottom right neighbors
             //this checks the top right neighbor
             if(curRow-1 >= 0 && map[curRow-1][curColumn+1] == 0 && !topRight){
-                possibleStates.add(createMazeStateFromPosition(curRow-1, curColumn+1,15, curState));
+                possibleStates.add(createMazeStateFromPosition(curRow-1, curColumn+1,15));
                 topRight = true;
             }
             //this checks the bottom right neighbor
             if(curRow+1 < rows && map[curRow+1][curColumn+1] == 0 && !bottomRight){
-                possibleStates.add(createMazeStateFromPosition(curRow+1, curColumn+1,15, curState));
+                possibleStates.add(createMazeStateFromPosition(curRow+1, curColumn+1,15));
                 bottomRight = true;
             }
         }
         //checking the neighbor down from the current cell
         if(curRow+1 < rows && map[curRow+1][curColumn] == 0)
         {
-            possibleStates.add(createMazeStateFromPosition(curRow+1, curColumn,10, curState));
+            possibleStates.add(createMazeStateFromPosition(curRow+1, curColumn,10));
             //if the down neighbor can be passed through then we can go diagonally to the bottom right and left neighbors
             //this checks the bottom right neighbor
             if(curColumn+1<columns && map[curRow+1][curColumn+1] == 0 && !bottomRight){
-                possibleStates.add(createMazeStateFromPosition(curRow+1, curColumn+1,15, curState));
+                possibleStates.add(createMazeStateFromPosition(curRow+1, curColumn+1,15));
                 bottomRight = true;
             }
             //this checks the bottom left neighbor
             if(curColumn-1 >= 0 && map[curRow+1][curColumn-1] == 0 && !bottomLeft){
-                possibleStates.add(createMazeStateFromPosition(curRow+1, curColumn-1,15, curState));
+                possibleStates.add(createMazeStateFromPosition(curRow+1, curColumn-1,15));
                 bottomLeft = true;
             }
         }
         //checking the neighbor left from the current cell
         if(curColumn-1 >= 0 && map[curRow][curColumn-1] == 0)
         {
-            possibleStates.add(createMazeStateFromPosition(curRow, curColumn-1,10, curState));
+            possibleStates.add(createMazeStateFromPosition(curRow, curColumn-1,10));
             //if the left neighbor can be passed through then we can go diagonally to the bottom and top left neighbors
             //this checks the bottom left neighbor
             if(curRow+1 < rows && map[curRow+1][curColumn-1] == 0 && !bottomLeft){
-                possibleStates.add(createMazeStateFromPosition(curRow+1, curColumn-1,15, curState));
+                possibleStates.add(createMazeStateFromPosition(curRow+1, curColumn-1,15));
                 bottomLeft = true;
             }
             //this checks the top left neighbor
             if(curRow-1 >= 0 && map[curRow-1][curColumn-1] == 0 && !topLeft){
-                possibleStates.add(createMazeStateFromPosition(curRow-1, curColumn-1,15, curState));
+                possibleStates.add(createMazeStateFromPosition(curRow-1, curColumn-1,15));
                 topLeft = true;
             }
         }
@@ -104,12 +104,10 @@ public class SearchableMaze implements ISearchable{
      * @param row - the row that we are in now.
      * @param column - the column that we are in now.
      * @param cost - the cost we want to add to the total cost by now
-     * @param prevState - the previous state we want to put to the new state
      * @return a MazeState
      */
-    private AState createMazeStateFromPosition(int row, int column, double cost, AState prevState){
+    private AState createMazeStateFromPosition(int row, int column, double cost){
         MazeState mazeState = new MazeState(new Position(row,column));
-        mazeState.setPrevState(prevState);
         mazeState.setCost(cost);
         return mazeState;
     }
