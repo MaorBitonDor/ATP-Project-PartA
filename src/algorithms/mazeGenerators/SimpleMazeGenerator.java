@@ -10,7 +10,11 @@ public class SimpleMazeGenerator extends AMazeGenerator{
      * @return Maze
      */
     @Override
-    public Maze generate(int columns, int rows) {
+    public Maze generate(int columns, int rows) throws Exception {
+        if (columns<2)
+            throw new Exception("Illegal number of columns");
+        if (rows<2)
+            throw new Exception("Illegal number of rows");
         Position[] positions = startAndGoalPositions(columns, rows);
         int[][] map = new int[rows][columns];
         Maze simpleMaze = new Maze(positions[0],positions[1],map);

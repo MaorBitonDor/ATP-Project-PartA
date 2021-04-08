@@ -13,15 +13,15 @@ public class Maze {
      * @param start - the starting position point
      * @param goal - the finishing position point
      */
-    public Maze(Position start, Position goal, int[][] map) {
+    public Maze(Position start, Position goal, int[][] map) throws Exception {
+        if(start==null || goal== null || map==null)
+            throw new Exception("Illegal parameter received");
         this.maze = map;
         this.start = start;
         this.goal = goal;
     }
 
-//    public void setMaze(int[][] maze) {
-//        this.maze = maze;
-//    }
+
 
     /**
      * a getter for the start position.
@@ -54,7 +54,13 @@ public class Maze {
      * @param column - the column index of the wanted cell
      * @param value - the value we want to put in the wanted cell
      */
-    public void setMazeCell(int row,int column, int value){
+    public void setMazeCell(int row,int column, int value) throws Exception {
+        if(row<0||row> maze.length)
+            throw new Exception("row index is out of range");
+        if(column<0||column> maze[0].length)
+            throw new Exception("column index is out of range");
+        if(value!=0 && value !=1)
+            throw new Exception("Illegal value");
         maze[row][column]=value;
     }
 

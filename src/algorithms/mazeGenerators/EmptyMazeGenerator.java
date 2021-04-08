@@ -11,9 +11,12 @@ public class EmptyMazeGenerator extends AMazeGenerator{
      */
 
     @Override
-    public Maze generate(int columns, int rows) {
+    public Maze generate(int columns, int rows) throws Exception {
+        if (columns<2)
+            throw new Exception("Illegal number of columns");
+        if (rows<2)
+            throw new Exception("Illegal number of rows");
         Position[] positions = startAndGoalPositions(columns, rows);
-//        Position[] positions = {new Position(0,0),new Position(rows-1,columns-1)};
         int[][] map = new int[rows][columns];
         return new Maze(positions[0],positions[1],map);
     }

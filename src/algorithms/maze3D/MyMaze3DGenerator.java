@@ -7,7 +7,13 @@ import java.util.Stack;
 public class MyMaze3DGenerator extends AMaze3DGenerator{
 
     @Override
-    public Maze3D generate(int depth, int row, int column) {
+    public Maze3D generate(int depth, int row, int column) throws Exception {
+        if (column<2)
+            throw new Exception("Illegal number of columns");
+        if (row<2)
+            throw new Exception("Illegal number of rows");
+        if (depth<2)
+            throw new Exception("Illegal number of depth");
         Position3D start = new Position3D(0,0,0);
         Position3D goal = new Position3D(depth-1, row-1, column-1);
         int[][][] map = new int[depth][row][column];
@@ -93,7 +99,9 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
         return new Maze3D(start,goal,map);
     }
 
-    private ArrayList<int[]> getNeighbors(int[][][] map, int depth, int rows, int columns,int[] curCell){
+    private ArrayList<int[]> getNeighbors(int[][][] map, int depth, int rows, int columns,int[] curCell) throws Exception {
+        if (map == null || curCell == null)
+            throw new Exception("Illegal map or curCell params");
         ArrayList<int[]> neighbors = new ArrayList<>();
         int[] tempPosition = new int[3];
         //checking the right cell
@@ -129,17 +137,17 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
             neighbors.add(tempPosition.clone());
         }
         //checking the up cell
-        if(depth > curCell[0]+2 && map[curCell[0]+2][curCell[1]][curCell[2]] == 1)
+        if(depth > curCell[0]+1 && map[curCell[0]+1][curCell[1]][curCell[2]] == 1)
         {
-            tempPosition[0] = curCell[0]+2;
+            tempPosition[0] = curCell[0]+1;
             tempPosition[1] = curCell[1];
             tempPosition[2] = curCell[2];
             neighbors.add(tempPosition.clone());
         }
         //checking the down cell
-        if(curCell[0]-2>=0 && map[curCell[0]-2][curCell[1]][curCell[2]] == 1)
+        if(curCell[0]-1>=0 && map[curCell[0]-1][curCell[1]][curCell[2]] == 1)
         {
-            tempPosition[0] = curCell[0]-2;
+            tempPosition[0] = curCell[0]-1;
             tempPosition[1] = curCell[1];
             tempPosition[2] = curCell[2];
             neighbors.add(tempPosition.clone());

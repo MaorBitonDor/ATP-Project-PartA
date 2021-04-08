@@ -22,7 +22,7 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
      * @return a Solution class that has the path from the start state to the goal state.
      */
     @Override
-    public Solution solve(ISearchable dom) {
+    public Solution solve(ISearchable dom) throws Exception {
         if(dom == null)
             return new Solution();
         this.queue.clear();

@@ -11,7 +11,9 @@ public class SearchableMaze implements ISearchable{
      * this is the constructor of searchableMaze which set the maze to be the given maze
      * @param maze - this is the maze that we want to search on.
      */
-    public SearchableMaze(Maze maze) {
+    public SearchableMaze(Maze maze) throws Exception {
+        if(maze == null)
+            throw new Exception("Illegal parameter maze");
         this.maze = maze;
     }
 
@@ -22,8 +24,10 @@ public class SearchableMaze implements ISearchable{
      * @return a list of all the neighbors that we can go to from the current state.
      */
     @Override
-    public ArrayList<AState> getAllSuccessors(AState curState) {
+    public ArrayList<AState> getAllSuccessors(AState curState) throws Exception {
         ArrayList<AState> possibleStates = new ArrayList<>();
+        if(curState == null)
+            return possibleStates;
         int[][] map = maze.getMaze();
         int rows = map.length;
         int columns = map[0].length;
@@ -106,7 +110,7 @@ public class SearchableMaze implements ISearchable{
      * @param cost - the cost we want to add to the total cost by now
      * @return a MazeState
      */
-    private AState createMazeStateFromPosition(int row, int column, double cost){
+    private AState createMazeStateFromPosition(int row, int column, double cost) throws Exception {
         MazeState mazeState = new MazeState(new Position(row,column));
         mazeState.setCost(cost);
         return mazeState;

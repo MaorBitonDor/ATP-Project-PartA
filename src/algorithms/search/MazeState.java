@@ -5,7 +5,6 @@ import algorithms.mazeGenerators.Position;
 public class MazeState extends AState {
     private Position StatePosition;
 
-    //TODO add check of arguments to all the parameter in this project!!!!
     /**
      * this is the constructor of the MazeState that gets a position and call the super class
      * with the toString of the class Position

@@ -11,7 +11,13 @@ public class Position3D {
      * @param row - the row we are in the maze3D
      * @param column - the column we are in the maze3D
      */
-    public Position3D(int depth, int row, int column) {
+    public Position3D(int depth, int row, int column) throws Exception {
+        if (column<0)
+            throw new Exception("Illegal column index");
+        if (row<0)
+            throw new Exception("Illegal row index");
+        if (depth<0)
+            throw new Exception("Illegal depth index");
         this.row = row;
         this.column = column;
         this.depth = depth;

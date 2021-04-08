@@ -21,19 +21,23 @@ public class Solution {
      * @param goal - this is the final state we want to be in - the solution state.
      */
     public Solution(AState goal){
-        Stack<AState> stack = new Stack<>();
         SolutionPath = new ArrayList<>();
-        this.solutionCost = goal.getCost();
-        AState curState = goal;
-        while(curState.getPrevState() != null){
+        if(goal == null)
+            solutionCost = 0;
+        else {
+            Stack<AState> stack = new Stack<>();
+            this.solutionCost = goal.getCost();
+            AState curState = goal;
+            while(curState.getPrevState() != null){
+                stack.push(curState);
+                curState = curState.getPrevState();
+            }
             stack.push(curState);
-            curState = curState.getPrevState();
+            while(!stack.empty()){
+                SolutionPath.add(stack.pop());
+            }
         }
-        stack.push(curState);
-        while(!stack.empty()){
-//            this.solutionCost += stack.peek().getCost();
-            SolutionPath.add(stack.pop());
-        }
+
     }
 
     /**

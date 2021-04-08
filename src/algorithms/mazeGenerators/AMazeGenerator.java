@@ -11,7 +11,11 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      * @param rows - number of rows in the maze
      * @return long
      */
-    public long measureAlgorithmTimeMillis(int columns,int rows){
+    public long measureAlgorithmTimeMillis(int columns,int rows) throws Exception {
+        if (columns<2)
+            throw new Exception("Illegal number of columns");
+        if (rows<2)
+            throw new Exception("Illegal number of rows");
         long beforeTime = System.currentTimeMillis();
         generate(columns,rows);
         long afterTime = System.currentTimeMillis();
@@ -27,7 +31,7 @@ public abstract class AMazeGenerator implements IMazeGenerator {
      * @param rows - number of rows in the maze
      * @return Position[]
      */
-    public Position[] startAndGoalPositions(int columns, int rows){
+    protected Position[] startAndGoalPositions(int columns, int rows) throws Exception {
         Position[] pos = new Position[2];
         Random rand = new Random();
         int rowGoal = rand.nextInt(rows);

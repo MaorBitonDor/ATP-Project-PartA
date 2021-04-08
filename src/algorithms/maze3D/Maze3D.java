@@ -11,7 +11,9 @@ public class Maze3D {
      * @param goal - the goal position3D in the maze3D.
      * @param map - 3D array representing the maze3D when 1 is a wall and 0 is a way to pass
      */
-    public Maze3D(Position3D start, Position3D goal, int[][][] map) {
+    public Maze3D(Position3D start, Position3D goal, int[][][] map) throws Exception {
+        if(start==null || goal== null || map==null)
+            throw new Exception("Illegal parameter received");
         this.map = map;
         this.start = start;
         this.goal = goal;

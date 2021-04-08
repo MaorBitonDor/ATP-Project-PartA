@@ -12,7 +12,11 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @return Maze
      */
     @Override
-    public Maze generate(int columns, int rows) {
+    public Maze generate(int columns, int rows) throws Exception {
+        if (columns<2)
+            throw new Exception("Illegal number of columns");
+        if (rows<2)
+            throw new Exception("Illegal number of rows");
         Position[] positions = startAndGoalPositions(columns, rows);
         int[][] map = new int[rows][columns];
         Stack<int[]> stack = new Stack<>();
@@ -93,7 +97,9 @@ public class MyMazeGenerator extends AMazeGenerator{
      * @param curCell - the current cell that we want to get its neighbors.
      * @return ArrayList<int[]> called neighbors that contains all the neighbors of the current cell.
      */
-    private ArrayList<int[]> getNeighbors(int[][] map, int rows, int columns, int[] curCell){
+    private ArrayList<int[]> getNeighbors(int[][] map, int rows, int columns, int[] curCell) throws Exception {
+        if (map == null || curCell == null)
+            throw new Exception("Illegal map or curCell params");
         ArrayList<int[]> neighbors = new ArrayList<>();
         int[] tempPosition = new int[2];
         if(columns > curCell[1]+2 && map[curCell[0]][curCell[1]+2] == 1)

@@ -14,17 +14,17 @@ public class BestFirstSearch extends ASearchingAlgorithm{
 
 
     @Override
-    public Solution solve(ISearchable dom) {
+    public Solution solve(ISearchable dom) throws Exception {
         if(dom == null)
             return new Solution();
         this.queue.clear();
         HashSet<AState> visited = new HashSet<>();
-        LinkedList<AState> visitedStates = new LinkedList<>();
+        HashMap<String,AState> visitedStatesHash = new HashMap<>();
         ArrayList<AState> possibleStates;
         AState curState,root = dom.getStartState(), goal = dom.getGoalState();
         queue.add(root);
         visited.add(root);
-        visitedStates.add(root);
+        visitedStatesHash.put(root.getState(), root);
         incNumberOfNodesEvaluated();
         while(queue.size() > 0){
             curState = queue.poll();
@@ -37,14 +37,17 @@ public class BestFirstSearch extends ASearchingAlgorithm{
                     possibleState.setPrevState(curState);
                     possibleState.setCost(possibleState.getCost());
                     visited.add(possibleState);
-                    visitedStates.add(possibleState);
+                    visitedStatesHash.put(possibleState.getState(),possibleState);
                     incNumberOfNodesEvaluated();
                     queue.add(possibleState);
                 }
                 //check if the old cost is higher the the new one
-                else if(possibleState.getCost()+curState.getCost()<(visitedStates.get(visitedStates.indexOf(possibleState))).getCost()){
-                    visitedStates.get(visitedStates.indexOf(possibleState)).setPrevState(curState);
-                    visitedStates.get(visitedStates.indexOf(possibleState)).setCost(possibleState.getCost());
+                else {
+                    AState tempState = visitedStatesHash.get(possibleState.getState());
+                    if(possibleState.getCost()+curState.getCost()<tempState.getCost()){
+                        tempState.setPrevState(curState);
+                        tempState.setCost(possibleState.getCost());
+                    }
                 }
             }
         }
