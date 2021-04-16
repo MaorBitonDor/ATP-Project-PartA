@@ -1,9 +1,6 @@
 package algorithms.search;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class BreadthFirstSearch extends ASearchingAlgorithm {
     protected Queue<AState> queue;
@@ -19,7 +16,9 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
     /**
      * this function uses BFS to solve the problem we face generically (like a maze for example).
      * @param dom - is a searchable object that can be searched by BFS.
-     * @return a Solution class that has the path from the start state to the goal state.
+     * @return a Solution class that has the path from the start state to the goal state and the total
+     * cost of this path.
+     * @throws Exception - from the function getAllSuccessors.
      */
     @Override
     public Solution solve(ISearchable dom) throws Exception {
@@ -31,9 +30,9 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         AState curState,root = dom.getStartState(), goal = dom.getGoalState();
         queue.add(root);
         visited.add(root);
-        incNumberOfNodesEvaluated();
         while(queue.size() > 0){
             curState = queue.poll();
+            incNumberOfNodesEvaluated();
             if(curState.equals(goal)){
                 return new Solution(curState);
             }
@@ -43,7 +42,6 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
                     possibleState.setPrevState(curState);
                     possibleState.setCost(possibleState.getCost());
                     visited.add(possibleState);
-                    incNumberOfNodesEvaluated();
                     queue.add(possibleState);
                 }
             }
@@ -51,5 +49,4 @@ public class BreadthFirstSearch extends ASearchingAlgorithm {
         //no solution found by the algorithm
         return new Solution();
     }
-
 }

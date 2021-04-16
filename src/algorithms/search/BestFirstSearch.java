@@ -12,7 +12,14 @@ public class BestFirstSearch extends ASearchingAlgorithm{
         this.queue = new PriorityQueue<>();
     }
 
-
+    /**
+     * this function uses Best First Search algorithm to solve the problem we face generically
+     * (like a maze for example).
+     * @param dom - is a searchable object that can be searched by Best First Search algorithm.
+     * @return a Solution class that has the path from the start state to the goal state and the total
+     * cost of this path
+     * @throws Exception - from the function getAllSuccessors.
+     */
     @Override
     public Solution solve(ISearchable dom) throws Exception {
         if(dom == null)
@@ -25,9 +32,9 @@ public class BestFirstSearch extends ASearchingAlgorithm{
         queue.add(root);
         visited.add(root);
         visitedStatesHash.put(root.getState(), root);
-        incNumberOfNodesEvaluated();
         while(queue.size() > 0){
             curState = queue.poll();
+            incNumberOfNodesEvaluated();
             if(curState.equals(goal)){
                 return new Solution(curState);
             }
@@ -38,7 +45,6 @@ public class BestFirstSearch extends ASearchingAlgorithm{
                     possibleState.setCost(possibleState.getCost());
                     visited.add(possibleState);
                     visitedStatesHash.put(possibleState.getState(),possibleState);
-                    incNumberOfNodesEvaluated();
                     queue.add(possibleState);
                 }
                 //check if the old cost is higher the the new one
