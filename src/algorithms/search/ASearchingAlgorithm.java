@@ -29,7 +29,7 @@ public abstract class ASearchingAlgorithm implements ISearchingAlgorithm {
     }
 
     /**
-     * this function allow to change the name of the algorithm for any class that inheret this
+     * this function allow to change the name of the algorithm for any class that inherit this
      * abstract class
      * @param name - the new name of the algorithm
      */

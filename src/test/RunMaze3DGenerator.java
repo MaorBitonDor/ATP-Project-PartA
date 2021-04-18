@@ -16,7 +16,7 @@ public class RunMaze3DGenerator {
         // generate another maze
         Maze3D maze3D = maze3DGenerator.generate(100/*depth*/,100/*rows*/, 100/*columns*/);
         // prints the maze
-//        maze3D.print();
+        maze3D.print();
         // get the maze entrance
         Position3D startPosition = maze3D.getStartPosition();
         // print the start position

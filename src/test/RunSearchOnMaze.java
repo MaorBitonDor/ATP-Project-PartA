@@ -2,25 +2,13 @@ package test;
 import algorithms.mazeGenerators.IMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
-import algorithms.mazeGenerators.Position;
 import algorithms.search.*;
 import java.util.ArrayList;
 
-//todo replace with the one from the pdf
 public class RunSearchOnMaze {
     public static void main(String[] args) throws Exception {
         IMazeGenerator mg = new MyMazeGenerator();
-        Maze maze = mg.generate(15, 15);
-//        int[][] map = {{0, 0, 0, 0, 0, 1, 1},
-//                        {1, 0, 1, 1, 0, 0, 1},
-//                        {1, 0, 0, 1, 1, 0, 0},
-//                        {1, 1, 0, 0, 1, 1, 0},
-//                        {1, 1, 1, 0, 0, 1, 0},
-//                        {1, 1, 1, 1, 0, 0, 0}};
-//        Position start = new Position(0,0);
-//        Position goal = new Position(4,6);
-//        Maze maze = new Maze(start,goal,map);
-        maze.print();
+        Maze maze = mg.generate(30, 30);
         SearchableMaze searchableMaze = new SearchableMaze(maze);
         solveProblem(searchableMaze, new BreadthFirstSearch());
         solveProblem(searchableMaze, new DepthFirstSearch());
@@ -36,8 +24,5 @@ public class RunSearchOnMaze {
         for (int i = 0; i < solutionPath.size(); i++) {
             System.out.println(String.format("%s. %s",i,solutionPath.get(i)));
         }
-        System.out.print("Path size: ");
-        System.out.println(solutionPath.size());
-        System.out.println(solution.getSolutionCost());
     }
 }

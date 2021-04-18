@@ -21,8 +21,6 @@ public class Maze {
         this.goal = goal;
     }
 
-
-
     /**
      * a getter for the start position.
      * @return Position

@@ -37,7 +37,6 @@ public class Solution {
                 SolutionPath.add(stack.pop());
             }
         }
-
     }
 
     /**

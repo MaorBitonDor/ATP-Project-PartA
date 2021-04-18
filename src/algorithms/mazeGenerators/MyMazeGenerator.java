@@ -128,5 +128,4 @@ public class MyMazeGenerator extends AMazeGenerator{
         }
         return neighbors;
     }
-
 }

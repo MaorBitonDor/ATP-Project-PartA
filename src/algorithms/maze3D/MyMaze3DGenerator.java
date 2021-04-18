@@ -6,6 +6,14 @@ import java.util.Stack;
 
 public class MyMaze3DGenerator extends AMaze3DGenerator{
 
+    /**
+     * generate create a maze3D with randomized DFS algorithm and creates walls accordingly.
+     * @param depth - the depth of the maze3D
+     * @param row - number of rows in the maze3D
+     * @param column - number of columns in the maze3D
+     * @return
+     * @throws Exception if the maze size is too small
+     */
     @Override
     public Maze3D generate(int depth, int row, int column) throws Exception {
         if (column<2)
@@ -99,6 +107,18 @@ public class MyMaze3DGenerator extends AMaze3DGenerator{
         return new Maze3D(start,goal,map);
     }
 
+    /**
+     * this function returns a list of arrays each array in size of 2 that state the position of the all
+     * the neighbors of the current cell that the algorithm did not visit in. We define that a neighbor is a
+     * cell that is 2 cells away (up, down, left or right) from the current cell.
+     * @param map - the map that represent the maze.
+     * @param depth - the depth of the map.
+     * @param rows - the number of rows in the map.
+     * @param columns - the number of columns in the map.
+     * @param curCell - the current cell that we want to get its neighbors.
+     * @return ArrayList<int[]> called neighbors that contains all the neighbors of the current cell.
+     * @throws Exception - if map or curCell is equal null.
+     */
     private ArrayList<int[]> getNeighbors(int[][][] map, int depth, int rows, int columns,int[] curCell) throws Exception {
         if (map == null || curCell == null)
             throw new Exception("Illegal map or curCell params");
