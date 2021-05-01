@@ -8,6 +8,7 @@ import algorithms.search.ISearchingAlgorithm;
 import algorithms.search.SearchableMaze;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy{
     private String tempDirectoryPath = System.getProperty("java.io.tmpdir");
@@ -19,14 +20,17 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
             File folder = new File(tempDirectoryPath);
             Maze maze = (Maze)fromClient.readObject();
-            InputStream mazeInputStream = new MyDecompressorInputStream()
-//            for (final File fileEntry : folder.listFiles()) {
-//                if (fileEntry.) {
-//                    listFilesForFolder(fileEntry);
-//                } else {
-//                    System.out.println(fileEntry.getName());
-//                }
-//            }
+            InputStream mazeInputStream;
+            byte[] fileMazeBytes,mazeByte = maze.toByteArray();
+            for (final File curFile : folder.listFiles()) {
+                mazeInputStream = new MyDecompressorInputStream(new FileInputStream(curFile.getName()));
+                fileMazeBytes = new byte[mazeByte.length];
+                mazeInputStream.read(fileMazeBytes);
+                if(Arrays.equals(mazeByte,fileMazeBytes)){
+                    //TODO return memorized solution
+                }
+            }
+            //TODO add the current maze to the folder
             //TODO change the searchAlgo by the ConfigFile
             ISearchingAlgorithm search = new BestFirstSearch();
             SearchableMaze Smaze = new SearchableMaze(maze);

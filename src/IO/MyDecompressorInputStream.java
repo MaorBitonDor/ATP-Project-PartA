@@ -33,6 +33,8 @@ public class MyDecompressorInputStream extends InputStream {
             for (char numChar:byteStr.toCharArray()) {
                 if(curInd<b.length)
                     b[curInd++]= (byte) Integer.parseInt(String.valueOf(numChar));
+                else
+                    return counter;
             }
             byteNum = in.read();
             counter++;
