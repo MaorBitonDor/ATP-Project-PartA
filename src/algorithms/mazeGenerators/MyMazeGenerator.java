@@ -17,7 +17,13 @@ public class MyMazeGenerator extends AMazeGenerator{
             throw new Exception("Illegal number of columns");
         if (rows<2)
             throw new Exception("Illegal number of rows");
-        Position[] positions = startAndGoalPositions(columns, rows);
+        Position[] positions = new Position[2];
+        if(rows==2){
+            positions[0] = new Position(0,0);
+            positions[1] = new Position(0,columns-1);
+        }
+        else
+            positions = startAndGoalPositions(columns, rows);
         int[][] map = new int[rows][columns];
         Stack<int[]> stack = new Stack<>();
         for (int i = 0; i < rows; i++) {
