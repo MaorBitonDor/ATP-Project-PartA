@@ -10,15 +10,29 @@ public class SimpleCompressorOutputStream extends OutputStream {
 
     private OutputStream out;
 
+    /**
+     * this is the constructor of SimpleCompressorOutputStream.
+     * @param out - an OutputStream that we need for the decorator pattern
+     */
     public SimpleCompressorOutputStream(OutputStream out) {
         this.out = out;
     }
 
+    /**
+     * @param b - an int that we want to write, we do it using the field out.
+     * @throws IOException - if we cant write the data then we throw an IO exception.
+     */
     @Override
     public void write(int b) throws IOException {
         out.write(b);
     }
 
+    /**
+     * this function takes the ones and zeros of the byte array and creates byte array that contains the number of zeros
+     * in a row and then ones in a row and so on until we finish all the bytes in the byte array.
+     * @param b - byte array that we receive and need to write it using the other write method after compressing the data.
+     * @throws IOException - if we cant write the data then we throw an IO exception.
+     */
     @Override
     public void write(byte[] b) throws IOException {
         int counter=0;

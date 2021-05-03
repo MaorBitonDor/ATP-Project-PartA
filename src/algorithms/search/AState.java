@@ -7,6 +7,11 @@ public abstract class AState implements Comparable{
     private double cost;
     private AState prevState;
 
+
+    public AState() {
+        State="";
+    }
+
     /**
      * this is the constructor of the abstract class.
      * @param state - a String represent the current state that we are in.

@@ -16,28 +16,38 @@ public class Server {
     private ExecutorService threadPool; // Thread pool
 
 
+    /**
+     * this is the constructor of the server.
+     * @param port - the port that the listen to.
+     * @param listeningIntervalMS - the time in mili seconds that the server will listen to a port before throwing an exception
+     * @param strategy - the strategy that the server will apply on the client that connect to it.
+     */
     public Server(int port, int listeningIntervalMS, IServerStrategy strategy) {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
-        //TODO changing the threadsNum by the ConfigFile
-        this.threadPool = Executors.newFixedThreadPool(2);
+        this.threadPool = Executors.newFixedThreadPool(Configurations.getInstance().getThreadsNum());
     }
 
+    /**
+     * this function start the server.
+     */
     public void start(){
+        ExecutorService thread = Executors.newFixedThreadPool(1);
+        thread.execute(() -> run());
+    }
+
+    public void run(){
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             serverSocket.setSoTimeout(listeningIntervalMS);
-
             while (!stop) {
                 try {
                     Socket clientSocket = serverSocket.accept();
-
                     // Insert the new task into the thread pool:
-                    threadPool.submit(() -> handleClient(clientSocket));
-
+                    threadPool.execute(() -> handleClient(clientSocket));
                 } catch (SocketTimeoutException e){
-                    e.printStackTrace();
+                    //e.printStackTrace();
                 }
             }
             serverSocket.close();
@@ -46,7 +56,9 @@ public class Server {
             e.printStackTrace();
         }
     }
-
+    /**
+     * @param clientSocket  - the client socket that we want to connect to and apply its strategy on.
+     */
     private void handleClient(Socket clientSocket) {
         try {
             strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
@@ -56,6 +68,9 @@ public class Server {
         }
     }
 
+    /**
+     * this function stops the server.
+     */
     public void stop(){
         stop = true;
     }

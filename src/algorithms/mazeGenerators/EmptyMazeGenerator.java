@@ -17,6 +17,7 @@ public class EmptyMazeGenerator extends AMazeGenerator{
         if (rows<2)
             throw new Exception("Illegal number of rows");
         Position[] positions = startAndGoalPositions(columns, rows);
+//        Position[] positions = {new Position(0,0),new Position(rows-1,columns-1)};
         int[][] map = new int[rows][columns];
         return new Maze(positions[0],positions[1],map);
     }

@@ -1,24 +1,35 @@
 package IO;
 
-import algorithms.mazeGenerators.Maze;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class SimpleDecompressorInputStream extends InputStream {
     private InputStream in;
 
+    /**
+     * this is the constructor of SimpleDecompressorInputStream.
+     * @param in - an InputStream that we use to apply the decorator pattern.
+     */
     public SimpleDecompressorInputStream(InputStream in) {
         this.in = in;
     }
 
+    /**
+     * @return the what the in field returns.
+     * @throws IOException - if we cant read we throw an IO exception
+     */
     @Override
     public int read() throws IOException {
         return in.read();
     }
 
 
+    /**
+     * this function gets a byte array and fill it with data that we read using the InputStream field in.
+     * @param b - byte array that we read into it the data.
+     * @return the number of character we read in total.
+     * @throws IOException - if we cant read we throw an IO exception.
+     */
     @Override
     public int read(byte[] b) throws IOException {
         int byteNum = in.read();
