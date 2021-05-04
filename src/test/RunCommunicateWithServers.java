@@ -6,6 +6,7 @@ import IO.MyDecompressorInputStream;
 import Server.Server;
 import Server.ServerStrategyGenerateMaze;
 import Server.ServerStrategySolveSearchProblem;
+import algorithms.mazeGenerators.EmptyMazeGenerator;
 import algorithms.mazeGenerators.Maze;
 import algorithms.mazeGenerators.MyMazeGenerator;
 import algorithms.search.AState;
@@ -30,6 +31,10 @@ public class RunCommunicateWithServers {
         //stringReverserServer.start();
         //Communicating with servers
         CommunicateWithServer_MazeGenerating();
+//        ExecutorService thread = Executors.newFixedThreadPool(4);
+//        for (int i = 0; i < 10; i++) {
+//            thread.execute(()->CommunicateWithServer_SolveSearchProblem());
+//        }
         CommunicateWithServer_SolveSearchProblem();
         //CommunicateWithServer_StringReverser();
         //Stopping all servers
@@ -69,6 +74,8 @@ public class RunCommunicateWithServers {
     }
     private static void CommunicateWithServer_SolveSearchProblem() {
         try {
+            //TODO change back to original
+            //TODO check why it doesnt work with multi threads
             Client client = new Client(InetAddress.getLocalHost(), 5401, new IClientStrategy() {
                         @Override
                         public void clientStrategy(InputStream inFromServer, OutputStream outToServer) {
@@ -93,19 +100,7 @@ public class RunCommunicateWithServers {
                             }
                         }
                     });
-            ExecutorService thread = Executors.newFixedThreadPool(3);
-            for (int i = 0; i <4; i++) {
-                System.out.println("iteration "+ i);
-                thread.execute(() -> client.communicateWithServer());
-                //TODO check why it doesnt work with multi threads
-//                try {
-//                    Thread.sleep(500);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                client.communicateWithServer();
-            }
-
+                client.communicateWithServer();
         } catch (UnknownHostException e) {
             e.printStackTrace();
         }

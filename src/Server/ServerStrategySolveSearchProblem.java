@@ -14,8 +14,31 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ServerStrategySolveSearchProblem implements IServerStrategy{
     private String tempDirectoryPath = System.getProperty("java.io.tmpdir");
-    private static ConcurrentHashMap<String,String> hashMap = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String,String> hashMap;
     private static volatile AtomicInteger solNum = new AtomicInteger();
+
+    public ServerStrategySolveSearchProblem() {
+        hashMap = new ConcurrentHashMap<>();
+        File dir = new File(tempDirectoryPath);
+        File[] solFiles = dir.listFiles((dir1,name) -> name.startsWith("MazeSol_"));
+        File[] mazeFiles = dir.listFiles((dir1,name) -> name.startsWith("Maze_"));
+        Arrays.sort(solFiles);
+        Arrays.sort(mazeFiles);
+        String curMazeStr;
+        byte[] compressedMaze;
+        ObjectInputStream mazeFromFile;
+        for (int i = 0; i < solFiles.length; i++){
+            try {
+                mazeFromFile = new ObjectInputStream(new FileInputStream(mazeFiles[i].getPath()));
+                compressedMaze = (byte[])mazeFromFile.readObject();
+                curMazeStr=convertByteArrayToString(compressedMaze);
+                hashMap.put(curMazeStr,solFiles[i].getPath());
+                solNum.incrementAndGet();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     /**
      * this function is the maze solve server.
@@ -28,7 +51,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
             toClient.flush();
-            File folder = new File(tempDirectoryPath);
+
             Maze maze = (Maze)fromClient.readObject();
             MyCompressorOutputStream myCompressor = new MyCompressorOutputStream(new ByteArrayOutputStream());
             myCompressor.write(maze.toByteArray());
@@ -45,19 +68,18 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
                 ISearchingAlgorithm search = (ISearchingAlgorithm) Class.forName("algorithms.search."+Configurations.getInstance().getSearchName()).getConstructor().newInstance();
                 SearchableMaze Smaze = new SearchableMaze(maze);
                 Solution solution = search.solve(Smaze);
-                String solFileName = "MazeSol_"+solNum;
+                String solFileName = tempDirectoryPath + "\\MazeSol_"+solNum;
+                String MazeFileName = tempDirectoryPath + "\\Maze_"+solNum;
                 solNum.incrementAndGet();
                 ObjectOutputStream solToFile = new ObjectOutputStream(new FileOutputStream(solFileName));
                 solToFile.writeObject(solution);
+                solToFile.flush();
+                ObjectOutputStream MazeToFile = new ObjectOutputStream(new FileOutputStream(MazeFileName));
+                MazeToFile.writeObject(compressedMaze);
+                MazeToFile.flush();
                 hashMap.put(mazeStr,solFileName);
                 toClient.writeObject(solution);
                 toClient.flush();
-//                ObjectInputStream solFromFile1 = new ObjectInputStream(new FileInputStream(hashMap.get(mazeStr)));
-//                Solution solution1 = (Solution) solFromFile1.readObject();
-//                ArrayList<AState> mazeSolutionSteps = solution1.getSolutionPath();
-//                for (int i = 0; i < mazeSolutionSteps.size(); i++) {
-//                    System.out.println(String.format("%s. %s", i, mazeSolutionSteps.get(i).toString()));
-//                }
             }
 
             fromClient.close();

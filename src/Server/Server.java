@@ -46,6 +46,8 @@ public class Server {
                     Socket clientSocket = serverSocket.accept();
                     // Insert the new task into the thread pool:
                     threadPool.execute(() -> handleClient(clientSocket));
+//                    Runnable runnable = new Thread(() -> handleClient(clientSocket));
+//                    threadPool.submit(runnable);
                 } catch (SocketTimeoutException e){
                     //e.printStackTrace();
                 }
