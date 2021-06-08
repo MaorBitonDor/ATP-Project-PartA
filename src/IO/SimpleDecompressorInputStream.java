@@ -20,7 +20,7 @@ public class SimpleDecompressorInputStream extends InputStream {
      */
     @Override
     public int read() throws IOException {
-        return in.read();
+        return 0;
     }
 
 

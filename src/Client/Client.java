@@ -1,13 +1,17 @@
 package Client;
 
+import Server.Configurations;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.concurrent.Semaphore;
 
 public class Client {
     private InetAddress serverIP;
     private int serverPort;
     private IClientStrategy strategy;
+//    private Semaphore semaphore;
 
     /**
      * the constructor of Client
@@ -26,7 +30,7 @@ public class Client {
      */
     public void communicateWithServer(){
         try(Socket serverSocket = new Socket(serverIP, serverPort)){
-            System.out.println("connected to server - IP = " + serverIP + ", Port = " + serverPort);
+            //System.out.println("connected to server - IP = " + serverIP + ", Port = " + serverPort);
             strategy.clientStrategy(serverSocket.getInputStream(), serverSocket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();

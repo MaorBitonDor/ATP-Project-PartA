@@ -12,9 +12,7 @@ public class Server {
     private int listeningIntervalMS;
     private IServerStrategy strategy;
     private volatile boolean stop;
-    private int threadsNum;
     private ExecutorService threadPool; // Thread pool
-
 
     /**
      * this is the constructor of the server.
@@ -26,15 +24,17 @@ public class Server {
         this.port = port;
         this.listeningIntervalMS = listeningIntervalMS;
         this.strategy = strategy;
-        this.threadPool = Executors.newFixedThreadPool(Configurations.getInstance().getThreadsNum());
+        this.stop=false;
+        int threadNum = Configurations.getInstance().getThreadsNum();
+        this.threadPool = Executors.newFixedThreadPool(threadNum);
     }
 
     /**
      * this function start the server.
      */
     public void start(){
-        ExecutorService thread = Executors.newFixedThreadPool(1);
-        thread.execute(() -> run());
+        Thread r= new Thread(()->run());
+        r.start();
     }
 
     public void run(){
@@ -45,9 +45,7 @@ public class Server {
                 try {
                     Socket clientSocket = serverSocket.accept();
                     // Insert the new task into the thread pool:
-                    threadPool.execute(() -> handleClient(clientSocket));
-//                    Runnable runnable = new Thread(() -> handleClient(clientSocket));
-//                    threadPool.submit(runnable);
+                    threadPool.submit(() -> {handleClient(clientSocket);});
                 } catch (SocketTimeoutException e){
                     //e.printStackTrace();
                 }
@@ -63,7 +61,7 @@ public class Server {
      */
     private void handleClient(Socket clientSocket) {
         try {
-            strategy.applyStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
+            strategy.ServerStrategy(clientSocket.getInputStream(), clientSocket.getOutputStream());
             clientSocket.close();
         } catch (IOException e){
             e.printStackTrace();

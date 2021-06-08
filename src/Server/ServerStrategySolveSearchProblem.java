@@ -17,6 +17,13 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
     private static ConcurrentHashMap<String,String> hashMap;
     private static volatile AtomicInteger solNum = new AtomicInteger();
 
+    /**
+     * this is the constructor of ServerStrategySolveSearchProblem which load all the compress mazes and
+     * there solution to the hash Map, we load the compressed maze files to files array and the solutions
+     * to a different file array, after that we sort those arrays (cause they have the same name that end
+     * with different index so it will be sorted by there index) and then we add each couple to the hash map
+     * (we use ConcurrentHashMap)
+     */
     public ServerStrategySolveSearchProblem() {
         hashMap = new ConcurrentHashMap<>();
         File dir = new File(tempDirectoryPath);
@@ -46,7 +53,7 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
      * @param outToClient - output stream to send data back to the client.
      */
     @Override
-    public void applyStrategy(InputStream inFromClient, OutputStream outToClient) {
+    public void ServerStrategy(InputStream inFromClient, OutputStream outToClient) {
         try {
             ObjectInputStream fromClient = new ObjectInputStream(inFromClient);
             ObjectOutputStream toClient = new ObjectOutputStream(outToClient);
@@ -54,10 +61,10 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
 
             Maze maze = (Maze)fromClient.readObject();
             MyCompressorOutputStream myCompressor = new MyCompressorOutputStream(new ByteArrayOutputStream());
+            myCompressor.flush();
             myCompressor.write(maze.toByteArray());
             byte[] compressedMaze = ((ByteArrayOutputStream)myCompressor.getOut()).toByteArray();
             String mazeStr = convertByteArrayToString(compressedMaze);
-            //TODO check if we need to check the search algorithm before returning
             if(hashMap.containsKey(mazeStr)){
                 ObjectInputStream solFromFile = new ObjectInputStream(new FileInputStream(hashMap.get(mazeStr)));
                 Solution solution = (Solution) solFromFile.readObject();
@@ -90,6 +97,10 @@ public class ServerStrategySolveSearchProblem implements IServerStrategy{
         }
     }
 
+    /**
+     * @param comperssedMaze - compressed maze from MyCompressor
+     * @return a string that represent this byte array (a unique string)
+     */
     private String convertByteArrayToString(byte[] comperssedMaze) {
         String res="";
         for (int i = 0; i < comperssedMaze.length; i++) {
