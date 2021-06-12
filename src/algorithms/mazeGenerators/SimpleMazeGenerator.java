@@ -27,6 +27,12 @@ public class SimpleMazeGenerator extends AMazeGenerator{
                 }
             }
         }
+        for(int col = simpleMaze.getStartPosition().getColumnIndex();col<columns;col++){
+            simpleMaze.setMazeCell(0,col,0);
+        }
+        for(int row = 0;row<simpleMaze.getGoalPosition().getRowIndex();row++){
+            simpleMaze.setMazeCell(row,columns-1,0);
+        }
         return simpleMaze;
     }
 }
